@@ -27,10 +27,14 @@ let package = Package(
         products: [
             .library(name: "Starscream", targets: ["Starscream"])
         ],
-        dependencies: [
-          .package(url: "https://github.com/apple/swift-nio-zlib-support.git", from: "1.0.0")
-        ],
+        dependencies: [],
         targets: [
-            .target(name: "Starscream")
+            .target(name: "Starscream",
+                    path: "Sources",
+                    resources: [.copy("PrivacyInfo.xcprivacy")])
         ]
 )
+
+#if os(Linux)
+    package.dependencies.append(.package(url: "https://github.com/apple/swift-nio-zlib-support.git", from: "1.0.0"))
+#endif
